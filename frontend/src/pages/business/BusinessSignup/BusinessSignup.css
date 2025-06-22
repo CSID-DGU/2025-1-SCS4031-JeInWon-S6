@@ -1,0 +1,39 @@
+.signup-container {
+  max-width: 400px;
+  width: 90%;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: 'SUIT', sans-serif;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.signup-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.signup-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.signup-button {
+  padding: 12px;
+  background: linear-gradient(to right, #FFE27A, #FF617F);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 16px;
+}

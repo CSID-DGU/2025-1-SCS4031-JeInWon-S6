@@ -62,13 +62,13 @@
 .venue-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  gap: 28px;
   padding-top: 12px;
   justify-items: center;
 }
 
 .venue-card {
-  min-width: 130px;
+  min-width: 140px;
   background-color: #1e1e1e;
   border-radius: 12px;
   overflow: hidden;

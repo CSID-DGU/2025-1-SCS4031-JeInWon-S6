@@ -27,6 +27,14 @@ const PerformerHome = () => {
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
+
+    // ✅ 조건이 맞으면 직접 이동
+    if (category === '대관' && selectedCity === '서울' && selectedDistrict === '강남구') {
+      navigate('/performer/rent/seoul/gangnam');
+      return; // 여기서 더 진행할 필요 없음
+    }
+
+    // ✅ 그 외 일반 검색 로직
     if (selectedCity && selectedDistrict) {
       handleSearch(category, selectedCity, selectedDistrict);
     } else {
@@ -58,7 +66,6 @@ const PerformerHome = () => {
           <img src="/images/icons/logout.png" alt="로그아웃" className="logout-icon" />
         </button>
       </div>
-
       <section className="banner-section">
         <div className="banner-text">
           <p className="label">공연비 지원</p>

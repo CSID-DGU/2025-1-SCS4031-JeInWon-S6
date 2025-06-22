@@ -6,7 +6,6 @@
   min-height: 100vh;
 }
 
-/* 헤더 */
 .calendar-header {
   display: flex;
   justify-content: center;
@@ -17,7 +16,6 @@
   margin-bottom: 12px;
 }
 
-/* 요일 라벨 */
 .calendar-days-row {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -31,7 +29,6 @@
   padding: 6px 0;
 }
 
-/* 날짜 격자 */
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -41,7 +38,6 @@
   margin-bottom: 20px;
 }
 
-/* 날짜 셀 */
 .calendar-day {
   display: flex;
   align-items: center;
@@ -63,23 +59,11 @@
   gap: 2px;
   line-height: 1;
 }
-/* 빈 날짜 (월 시작 전) */
+
 .empty-day {
   visibility: hidden;
 }
 
-/* 오늘 날짜 하이라이트 */
-.performer-highlight {
-  width: 6px;
-  height: 6px;
-  background-color: #F6859A;
-  border-radius: 50%;
-  margin-top: 4px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  display: inline-block;
-}
-/* 선택된 날짜 정보 */
 .calendar-info {
   text-align: center;
   font-size: 14px;
@@ -87,7 +71,6 @@
   color: #ccc;
 }
 
-/* 공연 리스트 */
 .calendar-event-list {
   padding: 0 12px;
 }
@@ -106,13 +89,13 @@
   font-weight: bold;
   margin-bottom: 6px;
   margin-top: 6px;
-
 }
 
 .calendar-event-sub {
   font-size: 14px;
   color: #cccccc;
 }
+
 .cancel-button {
   padding: 10px 12px;
   background-color: #333;
@@ -126,23 +109,35 @@
   vertical-align: middle;
   display: inline-block;
 }
-
 .cancel-button:hover {
-  background-color: #333;
+  background-color: #444;
 }
-.event-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
+
+.pending-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #FFD700;
+  border-radius: 50%;
+  margin-top: 4px;
 }
+
+.confirmed-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  margin-top: 4px;
+}
+
 .swal2-custom-title {
   font-size: 20px !important;
 }
-.Swal.fire
-.swal2-popup-size { font-size: 14px; }
-.swal2-confirm-button { font-size: 13px; }
-.swal2-cancel-button { font-size: 13px; }
-.swal2-title {
-  font-size: 20px !important;
+.swal2-popup-size {
+  font-size: 14px;
+}
+.swal2-confirm-button {
+  font-size: 13px;
+}
+.swal2-cancel-button {
+  font-size: 13px;
 }

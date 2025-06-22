@@ -72,7 +72,7 @@ const ViewerCalendar = () => {
         ))}
       </div>
 
-      <div className="calendar-grid">
+      <div className="viewer-calendar-grid">
         {days.map((day, i) => (
           <div
             key={i}

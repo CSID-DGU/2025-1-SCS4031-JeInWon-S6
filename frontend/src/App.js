@@ -12,6 +12,10 @@ import Splash from './pages/Splash/Splash';
 import UserTypeSelect from './pages/UserTypeSelect/UserTypeSelect';
 import Login from './pages/Login/Login';
 
+//사업자 페이지
+import BusinessSignup from './pages/business/BusinessSignup/BusinessSignup';
+import BusinessHome from './pages/business/BusinessHome/BusinessHome';
+
 // 공연자 페이지
 import PerformerSignup from './pages/performer/PerformerSignup/PerformerSignup';
 import PerformerHome from './pages/performer/PerformerHome/PerformerHome';
@@ -22,6 +26,8 @@ import PerformerCalendar from './pages/performer/PerformerCalendar/PerformerCale
 import PerformerMypage from './pages/performer/PerformerMypage/PerformerMypage';
 import PerformerEventDetail from './pages/performer/PerformerEventDetail/PerformerEventDetail';
 import PerformerEventList from './pages/performer/PerformerEventList/PerformerEventList';
+import PerformerResumeForm from './pages/performer/PerformerResumeForm/PerformerResumeForm';
+import PerformerRentList from './pages/performer/PerformerRentList/PerformerRentList';
 
 // 관람자 페이지
 import ViewerSignup from './pages/viewer/ViewerSignup/ViewerSignup';
@@ -63,8 +69,14 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/splash" element={<Splash />} />
 
+        {/* 사업자 회원가입 (탭 없이 단독) */}
+        <Route path="/business/signup" element={<BusinessSignup />} />
+
         {/* 공연자 회원가입 (탭 없이 단독) */}
         <Route path="/performer/signup" element={<PerformerSignup />} />
+
+        {/* 사업자 회원가입 */}
+        <Route path="/business/home" element={<BusinessHome />} />
 
         {/* 공연자 탭 포함 라우팅 */}
         <Route path="/performer" element={<PerformerTabLayout />}>
@@ -73,10 +85,14 @@ function App() {
           <Route path="ai" element={<PerformerAIRecommendation />} />
           <Route path="calendar" element={<PerformerCalendar />} />
           <Route path="profile" element={<PerformerMypage />} />
-          <Route path="venues/:id" element={<PerformerHallDetail />} />
           <Route path="events" element={<PerformerEventList />} />
           <Route path="events/:id" element={<PerformerEventDetail />} />
+          <Route path="/performer/resume" element={<PerformerResumeForm />} />
+          <Route path="/performer/rent/seoul/gangnam" element={<PerformerRentList />} />
         </Route>
+
+        {/* 공통 접근 가능한 상세페이지 라우팅을 performer 밖으로 분리 */}
+        <Route path="/venues/:id" element={<PerformerHallDetail />} />
 
         {/* 관람자 회원가입 (탭 없이 단독) */}
         <Route path="/viewer/signup" element={<ViewerSignup />} />

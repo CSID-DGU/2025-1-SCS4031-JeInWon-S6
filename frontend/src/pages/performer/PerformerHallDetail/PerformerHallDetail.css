@@ -3,9 +3,10 @@
   color: white;
   padding: 24px;
   font-family: 'SUIT', sans-serif;
-  align-items: center;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .back-button {
@@ -23,7 +24,7 @@
 .venue-title {
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin: 20px 0 12px;
   text-align: left;
   width: 100%;
   max-width: 300px;
@@ -56,19 +57,109 @@
   width: 100%;
   max-width: 290px;
   box-sizing: border-box;
+  margin-bottom: 20px;
 }
 
 .venue-info-box p {
   font-size: 14px;
 }
-.date-grid {
+.calendar-explanation {
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 16px 0 10px;
+}
+
+.calendar-month {
+  font-size: 16px;
+}
+.venue-detail-container .calendar-days-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 600;
+  color: #999;
+  font-size: 13px;
+  margin-bottom: 8px;
+  gap: 33px;
+}
+.calendar-days-row.calendar-day-label {
+  padding: 6px 0;
+}
+.venue-detail-container .calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+}
+.calendar-day {
+  aspect-ratio: 1 / 1;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-radius: 50%;
+}
+.calendar-day.selected {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+.calendar-day.today {
+  border: 1px solid #FFE27A;
+  border-radius: 50%;
+}
+
+.calendar-day.available {
+  color: white;
+}
+
+.calendar-day.available:hover {
+  border-radius: 50%;
+}
+.calendar-day.selected {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+.calendar-day.available:not(.selected) {
+  color: #FFE27A;
+  font-weight: bold;
+  border-radius: 50%;
+}
+.calendar-day.unavailable {
+  color: #444;
+  pointer-events: none;
+}
+.calendar-day.empty {
+  pointer-events: none;
+  visibility: hidden;
+}
+.calendar-info {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #ccc;
+}
+.time-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   margin: 16px 0;
 }
-
-.date-button {
+.time-button {
   padding: 10px;
   background-color: #222;
   border: 1px solid #666;
@@ -76,26 +167,73 @@
   border-radius: 8px;
   cursor: pointer;
   font-family: 'SUIT', sans-serif;
+  font-size: 14px;
 }
-
-.date-button.selected {
+.time-button.selected {
   background-color: #333;
   color: white;
 }
-
 .reserve-button {
   width: 100%;
-  padding: 12px;
+  max-width: 300px;
+  margin-top: 10px;
+  padding: 14px 0;
+  font-size: 16px;
   background: linear-gradient(to right, #FFE27A, #FF617F);
   color: white;
   font-weight: bold;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   font-family: 'SUIT', sans-serif;
+  transition: all 0.2s ease;
 }
-
+.reserve-button:hover:not(:disabled) {
+  transform: scale(1.02);
+  opacity: 0.9;
+}
 .reserve-button:disabled {
-  background: linear-gradient(to right, #FFE27A, #FF617F);
+  opacity: 0.5;
   cursor: not-allowed;
 }
+.calendar-day.full {
+  background-color: #1f1f1f;
+  color: #666;
+  pointer-events: none;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px solid #2a2a2a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.calendar-day.full .day-number {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+.day-number {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 2px;
+}
+.badge-closed {
+  font-size: 10px;
+  padding: 1px 4px;
+  background-color: #444;
+  color: #bbb;
+  border-radius: 4px;
+  margin-top: 2px;
+}
+.time-button.disabled {
+  background-color: #2a2a2a;
+  color: #666;
+  border: 1px solid #3a3a3a;
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+  border-radius: 6px;
+}
+
+

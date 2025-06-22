@@ -1,0 +1,59 @@
+.list-container {
+  background-color: #121212;
+  color: white;
+  padding: 54px 20px 20px;
+  font-family: 'SUIT', sans-serif;
+  min-height: 100vh;
+}
+
+.list-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.list-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.list-card {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.list-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.list-info {
+  padding: 12px;
+}
+
+.list-info h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.list-info p {
+  font-size: 14px;
+  color: #ccc;
+  margin: 2px 0;
+}
+
+.list-back-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}

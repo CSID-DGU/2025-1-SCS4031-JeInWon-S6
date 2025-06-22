@@ -97,7 +97,7 @@ const PerformerEventDetail = () => {
         <p className="event-detail-sub">📍 {event.city} {event.district}</p>
         <p className="event-detail-sub">🎉 {event.category}</p>
         <p className="event-detail-sub">🗓️ {event.date}</p>
-        <button className="reserve-button" onClick={handleReserve}>예약하기</button>
+        <button className="reserve-button" onClick={handleReserve}>지원하기</button>
       </div>
     </div>
   );

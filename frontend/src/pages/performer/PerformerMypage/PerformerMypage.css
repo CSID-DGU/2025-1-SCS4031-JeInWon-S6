@@ -64,6 +64,8 @@
 
 .performer-card img {
   width: 100%;
+  min-width: 90%;
+  min-height: 80%;
   border-radius: 8px;
   margin-bottom: 6px;
 }
@@ -114,4 +116,50 @@
   font-size: 13px;
   color: #ccc;
   margin-top: 6px;
+}
+.performer-resume-section {
+  margin-bottom: 32px;
+}
+
+.performer-resume-box {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.performer-resume-text {
+  max-width: 70%;
+}
+
+.performer-resume-title {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.performer-resume-description {
+  font-size: 13px;
+  color: #bbb;
+  line-height: 1.5;
+}
+
+.performer-resume-btn {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.performer-resume-btn:hover {
+  background-color: #555;
 }

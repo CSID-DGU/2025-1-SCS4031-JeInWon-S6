@@ -9,6 +9,23 @@ const venueImages = [
   '/images/performancehall/hall_000.png',
   '/images/performancehall/hall_001.png',
   '/images/performancehall/hall_002.png',
+  '/images/performancehall/hall_003.png',
+  '/images/performancehall/hall_004.png',
+  '/images/performancehall/hall_005.png',
+  '/images/performancehall/hall_006.png',
+  '/images/performancehall/hall_007.png',
+  '/images/performancehall/hall_008.png',
+  '/images/performancehall/hall_009.png',
+  '/images/performancehall/hall_010.png',
+  '/images/performancehall/hall_011.png',
+  '/images/performancehall/hall_012.png',
+  '/images/performancehall/hall_013.png',
+  '/images/performancehall/hall_014.png',
+  '/images/performancehall/hall_015.png',
+  '/images/performancehall/hall_016.png',
+  '/images/performancehall/hall_017.png',
+  '/images/performancehall/hall_018.png',
+  '/images/performancehall/hall_019.png',
 ];
 
 const venueNames = [
@@ -27,9 +44,9 @@ const seoulDistricts = [
 
 const sizes = [
   { label: '전체', range: null },
-  { label: '1~5명', range: [1, 5] },
-  { label: '6~10명', range: [6, 10] },
-  { label: '11명 이상', range: [11, Infinity] },
+  { label: '0~100명', range: [1, 100] },
+  { label: '100~200명', range: [6, 200] },
+  { label: '200명 이상', range: [201, Infinity] },
 ];
 
 // venue 생성 (모두 서울 소속으로)
@@ -132,8 +149,8 @@ const PerformerSearch = () => {
           <div
             key={item.id}
             className="venue-card"
-            onClick={() => navigate(`/performer/venues/${item.id}`, { state: { venue: item } })}
-
+            onClick={() => navigate(`/venues/${item.id}`, {
+             state: { venue: item, readonly: false, from: '/performer/search' } })}
           >
             <img src={item.image} alt={item.name} />
             <div className="venue-name">{item.name}</div>

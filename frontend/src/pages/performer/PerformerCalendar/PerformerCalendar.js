@@ -9,6 +9,7 @@ const PerformerCalendar = () => {
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [selectedDate, setSelectedDate] = useState(today.toISOString().slice(0, 10));
   const [performerReservations, setPerformerReservations] = useState([]);
+  const [refreshFlag, setRefreshFlag] = useState(false); // 추가: 상태 강제 갱신용
 
   const extractEventDates = (dateRange) => {
     const [startStr, endStr] = dateRange.split('~').map(str => str.trim());
@@ -24,14 +25,23 @@ const PerformerCalendar = () => {
   };
 
   const loadReservations = () => {
-    const venue = JSON.parse(localStorage.getItem('performerReservations') || '[]');
+    const allReservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const performerId = user?.id || '';
+
+    const myVenueReservations = allReservations
+      .filter(r => r.performerId === performerId)
+      .map(r => ({
+        id: r.id,
+        name: r.venueName || r.name || '공연장 예약',
+        region: r.region || '',
+        size: r.size || r.count || '',
+        date: r.date,
+        status: r.status || '대기중',
+        type: 'venue'
+      }));
+
     const events = JSON.parse(localStorage.getItem('eventReservations') || '[]');
-
-    const venueWithType = venue.map(v => ({
-      ...v,
-      type: 'venue'
-    }));
-
     const expandedEvents = events.flatMap(ev =>
       extractEventDates(ev.date).map(date => ({
         id: ev.id,
@@ -39,15 +49,44 @@ const PerformerCalendar = () => {
         region: ev.city + ' ' + ev.district,
         size: '축제',
         date: date,
+        status: '예약확정',
         type: 'event'
       }))
     );
 
-    setPerformerReservations([...venueWithType, ...expandedEvents]);
+    setPerformerReservations([...myVenueReservations, ...expandedEvents]);
+
+    console.log('내 공연자 ID:', performerId);
+    console.log('모든 예약:', allReservations);
+    console.log('필터링된 내 예약:', myVenueReservations);
+
   };
 
   useEffect(() => {
     loadReservations();
+  }, [refreshFlag]); // 상태 변화시 재로드
+
+  useEffect(() => {
+    const confirmed = localStorage.getItem('reservationConfirmed') === 'true';
+    const requested = localStorage.getItem('reservationRequested') === 'true';
+
+    if (confirmed) {
+      Swal.fire({
+        icon: 'success',
+        title: '예약이 확정되었습니다!',
+        text: '공연장 측에서 예약을 수락했습니다.',
+        confirmButtonColor: '#495BFB'
+      });
+      localStorage.removeItem('reservationConfirmed');
+    }
+
+    if (requested) {
+      localStorage.removeItem('reservationRequested');
+    }
+
+    if (confirmed || requested) {
+      setRefreshFlag(prev => !prev);
+    }
   }, []);
 
   const handlePrevMonth = () => {
@@ -74,15 +113,16 @@ const PerformerCalendar = () => {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
     const days = [];
-
     for (let i = 0; i < startDay; i++) {
-      days.push({ day: null, dateString: null, hasReservation: false });
+      days.push({ day: null, dateString: null, reservationStatus: null });
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
       const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-      const hasReservation = performerReservations.some(ev => ev.date === dateString);
-      days.push({ day: i, dateString, hasReservation });
+      const reservations = performerReservations.filter(ev => ev.date === dateString);
+      const hasConfirmed = reservations.some(r => r.status === '예약확정');
+      const hasPending = reservations.some(r => r.status === '대기중');
+      days.push({ day: i, dateString, hasConfirmed, hasPending });
     }
 
     return days;
@@ -90,43 +130,37 @@ const PerformerCalendar = () => {
 
   const days = getDaysInMonth(currentYear, currentMonth);
   const filteredEvents = performerReservations.filter(e => e.date === selectedDate);
+  const pendingCount = filteredEvents.filter(e => e.status === '대기중').length;
+  const confirmedCount = filteredEvents.filter(e => e.status === '예약확정').length;
 
   const handleCancel = (id, type) => {
     Swal.fire({
-      title: '예약을 취소하시겠습니까?',
+      title: '대기를 취소하시겠습니까?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#f85151',
       cancelButtonColor: '#666',
       confirmButtonText: '네, 취소합니다',
-      cancelButtonText: '아니오',
-      height: '100px',
-      width: '290px',
-      customClass: {
-        title: 'swal2-custom-title'
-      }
+      cancelButtonText: '아니오'
     }).then((result) => {
       if (result.isConfirmed) {
         if (type === 'venue') {
-          const updated = JSON.parse(localStorage.getItem('performerReservations') || '[]')
+          const updated = JSON.parse(localStorage.getItem('reservations') || '[]')
             .filter(r => r.id !== id);
-          localStorage.setItem('performerReservations', JSON.stringify(updated));
+          localStorage.setItem('reservations', JSON.stringify(updated));
         } else if (type === 'event') {
-          const updated = JSON.parse(localStorage.getItem('eventReservations') || '[]')
-            .filter(r => r.id !== id);
-          localStorage.setItem('eventReservations', JSON.stringify(updated));
-        }
+                 const updated = JSON.parse(localStorage.getItem('eventReservations') || '[]')
+                   .filter(r => r.id !== id);
+                 localStorage.setItem('eventReservations', JSON.stringify(updated));
+               }
 
-        loadReservations();
+               setRefreshFlag(prev => !prev);
 
         Swal.fire({
           title: '취소 완료',
-          text: '예약이 성공적으로 취소되었습니다.',
+          text: '대기가 성공적으로 취소되었습니다.',
           icon: 'success',
           timer: 1500,
-          customClass: {
-            title: 'swal2-custom-title'
-          },
           showConfirmButton: false
         });
       }
@@ -159,7 +193,8 @@ const PerformerCalendar = () => {
             {day.dateString ? (
               <div className="calendar-day-content">
                 <div>{day.day}</div>
-                {day.hasReservation && <div className="performer-highlight"></div>}
+                {day.hasPending && <span className="pending-dot"></span>}
+                {day.hasConfirmed && <span className="confirmed-dot"></span>}
               </div>
             ) : (
               <div className="empty-day"></div>
@@ -170,7 +205,7 @@ const PerformerCalendar = () => {
 
       <div className="calendar-info">
         <span>{selectedDate.replace(/-/g, '.')} ({new Date(selectedDate).toLocaleDateString('ko-KR', { weekday: 'short' })})</span>
-        <span>{filteredEvents.length}개의 예약이 있습니다</span>
+        <span>{pendingCount}개 대기중, {confirmedCount}개 예약확정</span>
       </div>
 
       <div className="calendar-event-list">
@@ -181,12 +216,14 @@ const PerformerCalendar = () => {
             <p className="calendar-event-sub">
               {event.size === '축제' ? '종류: 축제' : `규모: ${event.size}명`}
             </p>
-            <button
-              className="cancel-button"
-              onClick={() => handleCancel(event.id, event.type)}
-            >
-              예약 취소
-            </button>
+            {event.status === '대기중' && (
+              <button
+                className="cancel-button"
+                onClick={() => handleCancel(event.id, event.type)}
+              >
+                대기 취소
+              </button>
+            )}
           </div>
         ))}
       </div>

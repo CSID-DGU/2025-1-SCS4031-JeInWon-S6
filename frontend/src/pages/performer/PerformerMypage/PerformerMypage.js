@@ -1,5 +1,5 @@
-// PerformerMypage.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './PerformerMypage.css';
 
 const mockData = {
@@ -23,14 +23,27 @@ const mockData = {
 };
 
 const PerformerMypage = () => {
+  const navigate = useNavigate();
   return (
     <div className="performer-mypage-container">
       <header className="performer-header">
         <div className="performer-profile-circle" />
         <span className="performer-header-title">계정 정보</span>
-        <button className="performer-edit-btn">수정</button>
       </header>
-
+      <section className="performer-resume-section">
+            <div className="performer-resume-box">
+              <div className="performer-resume-text">
+                <p className="performer-resume-title">이력서</p>
+                <p className="performer-resume-description">소개, 활동 경력, 장르 등을 담은 이력서</p>
+              </div>
+              <button
+                className="performer-resume-btn"
+                onClick={() => navigate('/performer/resume')}
+              >
+              이력서 보기
+               </button>
+            </div>
+      </section>
       <section className="performer-section">
         <h2 className="performer-section-title">최근 본 공연장</h2>
         <div className="performer-card-list">

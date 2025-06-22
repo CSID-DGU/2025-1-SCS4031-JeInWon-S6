@@ -12,7 +12,6 @@
   margin-bottom: 20px;
   width: 100%;
 }
-
 .logout-btn {
   background: transparent;
   border: none;
@@ -284,4 +283,25 @@
   font-size: 13px;
   color: #aaa;
   margin-top: 6px;
+}
+.venue-item-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.venue-intro-button {
+  margin-left: 10px;
+  padding: 4px 10px;
+  font-size: 13px;
+  background-color: #495BFB;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'SUIT', sans-serif;
+  transition: background-color 0.2s ease;
+}
+.venue-intro-button:hover {
+  background-color: #3944d4;
 }

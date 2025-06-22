@@ -35,6 +35,7 @@ const ViewerAI = () => {
             onClick={() => handleCardClick(venue)}
           >
             <h3 className="viewer-ai-card-title">{venue.venueName}</h3>
+            <p className="viewer-ai-subtitle">추천 태그 :</p>
             <div className="viewer-ai-tags">
               {venue.tags.map((tag, index) => (
                 <span key={index} className="viewer-ai-tag">
